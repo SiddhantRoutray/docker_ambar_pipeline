@@ -59,7 +59,7 @@ class AutoTagger:
 
     def SetOCRTag(self, AmbarFile):
         if AmbarFile['content']['ocr_performed']:
-            self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'ocr')
+            self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'ocr_test')
 
     def SetArchiveTag(self, AmbarFile):
         if ContentTypeAnalyzer.IsArchive(AmbarFile['meta']['full_name']):
