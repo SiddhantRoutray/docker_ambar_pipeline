@@ -16,6 +16,7 @@ class AutoTagger:
         self.SetSourceIdTag(AmbarFile)
         self.SetArchiveTag(AmbarFile)
         self.SetImageTag(AmbarFile)
+        self.SetFolderTag(AmbarFile)
 
         for rule in self.GetTaggingRules():
             self.ProcessTaggingRule(rule, AmbarFile)
@@ -81,4 +82,12 @@ class AutoTagger:
             return False
         
         self.logger.LogMessage('verbose', '{0} tag added to {1}'.format(Tag, FullName))
+
+
+    ### CUSTOM
+    def SetFolderNameTag(self, AmbarFile):
+        fileString = AmbarFile['meta']['full_name']
+        if('outerFolder' in fileString):
+            self.logger.LogMessage('verbose', 'outerFolder is in {0}'.format(fileString))
+            self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'outerFolder')
 
