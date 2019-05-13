@@ -16,7 +16,7 @@ class AutoTagger:
         self.SetSourceIdTag(AmbarFile)
         self.SetArchiveTag(AmbarFile)
         self.SetImageTag(AmbarFile)
-        #self.CustomTagger(AmbarFile)
+        self.CustomTagger(AmbarFile)
 
         for rule in self.GetTaggingRules():
             self.ProcessTaggingRule(rule, AmbarFile)
