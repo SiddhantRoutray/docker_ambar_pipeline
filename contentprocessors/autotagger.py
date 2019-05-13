@@ -16,7 +16,7 @@ class AutoTagger:
         self.SetSourceIdTag(AmbarFile)
         self.SetArchiveTag(AmbarFile)
         self.SetImageTag(AmbarFile)
-        self.SetFolderTag(AmbarFile)
+        #self.CustomTagger(AmbarFile)
 
         for rule in self.GetTaggingRules():
             self.ProcessTaggingRule(rule, AmbarFile)
@@ -85,7 +85,7 @@ class AutoTagger:
 
 
     ### CUSTOM
-    def SetFolderNameTag(self, AmbarFile):
+    def CustomTagger(self, AmbarFile):
         fileString = AmbarFile['meta']['full_name']
         self.logger.LogMessage('verbose', 'filePath --------------------- {0}'.format(fileString))
 
