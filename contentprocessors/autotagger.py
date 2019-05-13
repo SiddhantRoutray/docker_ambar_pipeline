@@ -87,7 +87,11 @@ class AutoTagger:
     ### CUSTOM
     def SetFolderNameTag(self, AmbarFile):
         fileString = AmbarFile['meta']['full_name']
+        self.logger.LogMessage('verbose', 'filePath --------------------- {0}'.format(fileString))
+
+        '''
         if('outerFolder' in fileString):
             self.logger.LogMessage('verbose', 'outerFolder is in {0}'.format(fileString))
             self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'outerFolder')
+        '''
 
