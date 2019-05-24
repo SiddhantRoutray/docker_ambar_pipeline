@@ -92,7 +92,7 @@ class AutoTagger:
         fileString = AmbarFile['meta']['full_name']
         fileContent = AmbarFile['content']['text']
         self.logger.LogMessage('verbose', 'filePath --------------------- {0}'.format(fileString))
-        #self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
+        self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
         text = fileContent
         words = text.split(" ")
         email_tag_flag = -1
@@ -102,19 +102,20 @@ class AutoTagger:
                 break
         if(email_tag_flag==1):
             self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'email')
-        #self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
+        self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
 
 
         nlp = spacy.load("en_core_web_sm")
         person = 0    
         for sentence in text.split("."):
+            
             doc = nlp(sentence)
             ents = [(e.text,e.label_) for e in doc.ents]
             for i in ents:
                 if i[1] == 'PERSON':
-                    person = 1
-                    self.logger.LogMessage('verbose', 'person name tagged --------------------- {0}'.format(i[0]))
+                    person =1
                     break
+            self.logger.LogMessage('verbose', 'ents --------------------- {0}'.format(ents))
         if(person==1):
             self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'person')
         #self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
