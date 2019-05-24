@@ -83,9 +83,7 @@ class AutoTagger:
             return False
         
         self.logger.LogMessage('verbose', '{0} tag added to {1}'.format(Tag, FullName))
-
-
-    ### CUSTOM
+### CUSTOM
     def CustomTagger(self, AmbarFile):
         fileString = AmbarFile['meta']['full_name']
         fileContent = AmbarFile['content']['text']
@@ -93,14 +91,14 @@ class AutoTagger:
         self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
         text = fileContent
         words = text.split(" ")
-		email_tag_flag = -1
-		for word in words:
-		    if(("@" in word)):
-		        email_tag_flag = 1
-		        break
-		if(email_tag_flag==1):
-			self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'email')
-
+        email_tag_flag = -1
+        for word in words:
+            if(("@" in word)):
+                email_tag_flag = 1
+                break
+        if(email_tag_flag==1):
+            self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'email')
+        self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
 
 
         '''
