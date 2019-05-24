@@ -112,7 +112,8 @@ class AutoTagger:
             ents = [(e.text,e.label_) for e in doc.ents]
             for i in ents:
                 if i[1] == 'PERSON':
-                    person =1
+                    person = 1
+                    self.logger.LogMessage('verbose', 'person name tagged --------------------- {0}'.format(i[0]))
                     break
         if(person==1):
             self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'person')
