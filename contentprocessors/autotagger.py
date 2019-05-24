@@ -105,19 +105,19 @@ class AutoTagger:
         self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
 
 
-		nlp = spacy.load("en_core_web_sm")
-		person = 0	
+        nlp = spacy.load("en_core_web_sm")
+        person = 0    
         for sentence in text.split("."):
-        	
-			doc = nlp(sentence)
-			ents = [(e.text,e.label_) for e in doc.ents]
-			for i in ents:
-			    if i[1] == 'PERSON':
-			    	person =1
-			    	break
-		if(person==1):
-	        self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'person')
-		self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
+            
+            doc = nlp(sentence)
+            ents = [(e.text,e.label_) for e in doc.ents]
+            for i in ents:
+                if i[1] == 'PERSON':
+                    person =1
+                    break
+        if(person==1):
+            self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'person')
+        self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
 
 
         '''
