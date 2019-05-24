@@ -3,6 +3,7 @@ from apiproxy import ApiProxy
 from logger import AmbarLogger
 from parsers.contenttypeanalyzer import ContentTypeAnalyzer
 import re
+import spacy
 
 class AutoTagger:
     def __init__(self, Logger, ApiProxy):
@@ -17,6 +18,7 @@ class AutoTagger:
         self.SetArchiveTag(AmbarFile)
         self.SetImageTag(AmbarFile)
         self.CustomTagger(AmbarFile)
+
 
         for rule in self.GetTaggingRules():
             self.ProcessTaggingRule(rule, AmbarFile)
@@ -83,7 +85,9 @@ class AutoTagger:
             return False
         
         self.logger.LogMessage('verbose', '{0} tag added to {1}'.format(Tag, FullName))
-### CUSTOM
+
+
+    ### CUSTOM
     def CustomTagger(self, AmbarFile):
         fileString = AmbarFile['meta']['full_name']
         fileContent = AmbarFile['content']['text']
@@ -99,6 +103,21 @@ class AutoTagger:
         if(email_tag_flag==1):
             self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'email')
         self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
+
+
+		nlp = spacy.load("en_core_web_sm")
+		person = 0	
+        for sentence in text.split("."):
+        	
+			doc = nlp(sentence)
+			ents = [(e.text,e.label_) for e in doc.ents]
+			for i in ents:
+			    if i[1] == 'PERSON':
+			    	person =1
+			    	break
+		if(person==1):
+	        self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'person')
+		self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
 
 
         '''
