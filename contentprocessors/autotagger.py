@@ -117,9 +117,11 @@ class AutoTagger:
                 #     break
                 person=1
                 break
-            # self.logger.LogMessage('verbose', 'ents --------------------- {0}'.format(ents))
-        if(person==1):
-            self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'person')
+            
+	        if(person==1):
+	            self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'person')
+	            person = 0
+	            self.logger.LogMessage('verbose', 'ents --------------------- {0}'.format(ents))
         #self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
 
 
