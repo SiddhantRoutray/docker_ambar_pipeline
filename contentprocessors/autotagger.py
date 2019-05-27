@@ -238,15 +238,13 @@ class AutoTagger:
         nlp = spacy.load("en_core_web_sm")
         person = 0    
         for sentence in text.split("."):
-            
             doc = nlp(sentence)
             ents = [(e.text,e.label_) for e in doc.ents]
             for i in ents:
-                if i[1] == 'PERSON':
-                	person = 1
-                	print(i[0])
-
-                	break
+            	if i[1] == 'PERSON':
+            		person = 1
+            		print(i[0])
+            		break
             
 	if(person==1):
 	    self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'person')
