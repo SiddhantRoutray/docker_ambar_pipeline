@@ -110,7 +110,7 @@ class AutoTagger:
                 phone_tag_flag = 1
                 break
         if(phone_tag_flag==1):
-            self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'Phone_No')
+            self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'Phone')
         self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
 
         nlp = spacy.load("en_core_web_sm")
