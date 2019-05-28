@@ -92,6 +92,7 @@ class AutoTagger:
         fileString = AmbarFile['meta']['full_name']
         fileContent = AmbarFile['content']['text']
         self.logger.LogMessage('verbose', 'filePath --------------------- {0}'.format(fileString))
+        self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
         
         text = fileContent
         nlp = spacy.load("en_core_web_sm")
