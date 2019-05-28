@@ -106,9 +106,9 @@ class AutoTagger:
         
         phone_tag_flag = -1
         for word in words:
-            if(re.match("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$",word)):
-        phone_tag_flag = 1
-        break
+            if(re.match("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$",word))
+                phone_tag_flag = 1
+                break
         if(phone_tag_flag==1):
             self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'Phone_No')
         self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
