@@ -96,6 +96,7 @@ class AutoTagger:
         file_name = "home/aptus/labelling/test/"+fileString.split(".pdf")[0]+".txt"
         self.logger.LogMessage('verbose', 'outputFileName --------------------- {0}'.format(file_name))
         with open("home/aptus/labelling/test/"+fileString.split(".pdf")[0]+".txt", "wb+") as f: 
+            self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
             f.write(fileContent)
             f.flush()
         f.close()
