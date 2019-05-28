@@ -106,7 +106,7 @@ class AutoTagger:
         
         phone_tag_flag = -1
         for word in words:
-            if(re.match("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$",word)):
+            if(re.match("^([+]{0,1}\d{1,2}\s{0,1}-{0,1}){0,1}\d{3}-{0,1}\s{0,1}\d{3}-{0,1}\s{0,1}\d{4}$",word)):
                 phone_tag_flag = 1
                 break
         if(phone_tag_flag==1):
