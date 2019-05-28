@@ -97,11 +97,11 @@ class AutoTagger:
         nlp = spacy.load("en_core_web_sm")
         person = 0    
         for sentence in text.split("."):
-        	self.logger.LogMessage('verbose', 'sentence --------------------- {0}'.format(sentence))
+            self.logger.LogMessage('verbose', 'sentence --------------------- {0}'.format(sentence))
             doc = nlp(sentence)
             ents = [(e.text,e.label_) for e in doc.ents]
             for i in ents:
-            	self.logger.LogMessage('verbose', 'entities --------------------- {0} --- {1}'.format(i[0], i[1]))
+                self.logger.LogMessage('verbose', 'entities --------------------- {0} --- {1}'.format(i[0], i[1]))
                 if i[1] == 'PERSON':
                     person = 1
                     break
