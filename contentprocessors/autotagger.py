@@ -103,13 +103,13 @@ class AutoTagger:
         if(email_tag_flag==1):
             self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'Email')
         self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
-	
-	phone_tag_flag = -1
-	for word in words:
-	    if(re.match("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$",word)):
-		phone_tag_flag = 1
-		break
-	if(phone_tag_flag==1):
+        
+        phone_tag_flag = -1
+        for word in words:
+            if(re.match("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$",word)):
+        phone_tag_flag = 1
+        break
+        if(phone_tag_flag==1):
             self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'Phone_No')
         self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
 
@@ -121,14 +121,14 @@ class AutoTagger:
             ents = [(e.text,e.label_) for e in doc.ents]
             for i in ents:
                 if i[1] == 'PERSON':
-                	person = 1
-                	print(i[0])
-                	break
+                        person = 1
+                        print(i[0])
+                        break
             
-	if(person==1):
-	    self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'person')
-	    person = 0
-	
+        if(person==1):
+            self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'person')
+            person = 0
+        
 
         '''
         if('outerFolder' in fileString):
