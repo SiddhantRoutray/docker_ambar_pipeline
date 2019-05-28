@@ -92,12 +92,16 @@ class AutoTagger:
         fileString = AmbarFile['meta']['full_name']
         fileContent = AmbarFile['content']['text']
         self.logger.LogMessage('verbose', 'filePath --------------------- {0}'.format(fileString))
-        self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
+        #/home/aptus/labelling/test/sample.txt
+        with open("home/aptus/labelling/test/"+fileString.split(".pdf")[0]+".txt", "wb+") as f: 
+            f.write(fileContent) 
         
         text = fileContent
         nlp = spacy.load("en_core_web_sm")
         person = 0    
+        self.logger.LogMessage('verbose', 'sentence --------------------- {0}'.format(len(text.split())))
         for sentence in text.split("."):
+
             self.logger.LogMessage('verbose', 'sentence --------------------- {0}'.format(sentence))
             doc = nlp(sentence)
             ents = [(e.text,e.label_) for e in doc.ents]
