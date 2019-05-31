@@ -113,7 +113,7 @@ class AutoTagger:
             self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'Phone')
         self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
 
-         uri_tag_flag = -1
+        uri_tag_flag = -1
         for word in words:
             if(re.match("((?<=\()[A-Za-z][A-Za-z0-9\+\.\-]*:([A-Za-z0-9\.\-_~:\/\?#\[\]@!\$&'\(\)\*\+,;=]|%[A-Fa-f0-9]{2})+(?=\)))|([A-Za-z][A-Za-z0-9\+\.\-]*:([A-Za-z0-9\.\-_~:\/\?#\[\]@!\$&'\(\)\*\+,;=]|%[A-Fa-f0-9]{2})+)",word)):
                 uri_tag_flag = 1
