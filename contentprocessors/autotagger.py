@@ -87,42 +87,67 @@ class AutoTagger:
         self.logger.LogMessage('verbose', '{0} tag added to {1}'.format(Tag, FullName))
 
 
-    ### CUSTOM
+### CUSTOM
     def CustomTagger(self, AmbarFile):
         fileString = AmbarFile['meta']['full_name']
         fileContent = AmbarFile['content']['text']
         self.logger.LogMessage('verbose', 'filePath --------------------- {0}'.format(fileString))
-        #/home/aptus/labelling/test/sample.txt
-        file_name = "home/aptus/labelling/test/"+fileString.split(".pdf")[0]+".txt"
-        self.logger.LogMessage('verbose', 'outputFileName --------------------- {0}'.format(file_name))
-        with open("home/aptus/labelling/test/"+fileString.split(".pdf")[0]+".txt", "wb+") as f: 
-            self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
-            f.write(fileContent)
-            f.flush()
-        f.close()
-        
+        self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
         text = fileContent
-        nlp = spacy.load("en_core_web_sm")
-        person = -1    
-        self.logger.LogMessage('verbose', 'sentence --------------------- {0}'.format(len(text.split())))
-        for sentence in text.split("\n"):
+        words = text.split(" ")
+        email_tag_flag = -1
+        for word in words:
+            if(("@" in word)):
+                email_tag_flag = 1
+                break
+        if(email_tag_flag==1):
+            self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'Email')
+        self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
+        
+        phone_tag_flag = -1
+        for word in words:
+            if(re.match("^([+]{0,1}\d{1,2}\s{0,1}-{0,1}){0,1}\d{3}-{0,1}\s{0,1}\d{3}-{0,1}\s{0,1}\d{4}$",word)):
+                phone_tag_flag = 1
+                break
+        if(phone_tag_flag==1):
+            self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'Phone')
+        self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
 
-            self.logger.LogMessage('verbose', 'sentence --------------------- {0}'.format(sentence))
+         uri_tag_flag = -1
+        for word in words:
+            if(re.match("((?<=\()[A-Za-z][A-Za-z0-9\+\.\-]*:([A-Za-z0-9\.\-_~:\/\?#\[\]@!\$&'\(\)\*\+,;=]|%[A-Fa-f0-9]{2})+(?=\)))|([A-Za-z][A-Za-z0-9\+\.\-]*:([A-Za-z0-9\.\-_~:\/\?#\[\]@!\$&'\(\)\*\+,;=]|%[A-Fa-f0-9]{2})+)",word)):
+                uri_tag_flag = 1
+                break
+        if(uri_tag_flag==1):
+            self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'uri')
+        self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
+
+
+
+        ipaddress_tag_flag = -1
+        for word in words:
+            if(re.match("\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}",word)):
+                ipaddress_tag_flag = 1
+                break
+        if(ipaddress_tag_flag==1):
+            self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'IP_Address')
+        self.logger.LogMessage('verbose', 'fileContent --------------------- {0}'.format(fileContent))
+
+
+        nlp = spacy.load("en_core_web_sm")
+        person = 0    
+        for sentence in text.split("."):
+            
             doc = nlp(sentence)
             ents = [(e.text,e.label_) for e in doc.ents]
             for i in ents:
-                self.logger.LogMessage('verbose', 'entities --------------------- {0} --- {1}'.format(i[0], i[1]))
                 if i[1] == 'PERSON':
-                    person = 1
-                    break
+                        person = 1
+                        print(i[0])
+                        break
             
         if(person==1):
             self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'person')
             person = 0
-        
 
-        '''
-        if('outerFolder' in fileString):
-            self.logger.LogMessage('verbose', 'outerFolder is in {0}'.format(fileString))
-            self.AddTagToAmbarFile(AmbarFile['file_id'], AmbarFile['meta']['full_name'], self.AUTO_TAG_TYPE, 'outerFolder')
-        '''
+
